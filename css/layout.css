@@ -1,0 +1,91 @@
+/* 共通レイアウト */
+.l_space_between_section {
+  display: flex;
+  justify-content: center;
+  padding: 64px 0px;
+}
+
+.l_side_space {
+  width: 80%;
+}
+
+.l_flex_row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 32px;
+}
+
+.l_flex_column_center {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px
+}
+
+.text_align_center {
+  text-align: center;
+}
+
+/* 個別レイアウト */
+h1 {
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header_textarea_main {
+  display: flex;
+  align-items: center;
+}
+
+.header_textarea_main_nav {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  gap: 20px;
+  list-style: none;
+}
+
+.fv_main_img {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.user_voice_main_card_list {
+  margin-bottom: 16px;
+}
+
+.faq_main_card_list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* スマホレイアウト */
+@media screen and (max-width: 768px) {
+  .l_side_space {
+    width: 95%;
+  }
+
+  .l_flex_column_center {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .l_flex_row {
+    display: flex;
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,159 @@
+/* 共通モジュール */
+body {
+  font-family: "Noto Sans";
+}
+
+.background_gray {
+  background-color: #FAFAFA;
+}
+
+.line_height_28 {
+  line-height: 28px;
+}
+
+.fv_main_text {
+  color: #FFFFFF;
+}
+
+h2 {
+  font-size: 1.875rem;
+  line-height: 36px;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+.worries_main_card {
+  width: 31.25%;
+  background-color: #FFF5F5;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.worries_main_card_text {
+  line-height: 24px;
+  padding-left: 20px;
+}
+
+.user_voice_main_card {
+  width: 31.25%;
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  line-height: 28px;
+  background-image: url("../img/image.jpg"), url("../img/image.jpg");
+  background-position: top left, bottom right;
+  background-repeat: no-repeat, no-repeat;
+}
+
+.cta {
+  display: inline-block;
+  padding: 12px 32px;
+  border-radius: 9999px;
+  background-color: #F6AD55;
+  text-decoration: none;
+}
+
+/* ヘッダーモジュール */
+header {
+  height: 64px;
+  background-color: #FFFFFF;
+}
+
+.header_textarea_main a {
+  text-decoration: none;
+  color: #000000;
+  font-weight: bold;
+  width: 200px;
+}
+
+/* FVモジュール */
+#fv {
+  width: 100%;
+  background: linear-gradient(to bottom, #DC887A, #E4ABAB, #FFFFFF)
+}
+
+h1 {
+  font-size: 3rem;
+  color: #FFFFFF;
+  line-height: 48px;
+}
+
+.fv_main_text_cta > a {
+  display: inline-block;
+  padding: 12px 32px;
+  border-radius: 9999px;
+  background-color: #F6AD55;
+  text-decoration: none;
+}
+
+/* よくある質問モジュール */
+.faq_main_card:hover {
+  cursor: pointer; /* マウスの形を変更 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* ホバー時に影を付与 */
+}
+
+.faq_question {
+  width: 672px;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  box-shadow: 0 1 3px 0 rgba(0, 0, 0, 0.1);
+  background-image: url("../img/faq.jpg");
+  background-position: calc(100% - 20px);
+  background-repeat: no-repeat, no-repeat;
+  font-weight: bold;
+}
+
+.faq_answer {
+  width: 672px;
+  padding: 16px;
+  background-color: #FFF5F5;
+  border-radius: 8px;
+}
+
+/* フッターモジュール */
+footer {
+  height: 88px;
+  background-color: #2D3748;
+  color: #FFFFFF;
+}
+
+/* スマホモジュール */
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 1.875rem;
+  }
+
+  .header_textarea_main_nav {
+    display: none;
+  }
+
+  .fv_main_img > img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .worries_main_card {
+    width: 95%;
+  }
+
+  .user_voice_main_card {
+    width: 95%;
+  }
+
+  .faq_main_card {
+    width: 300px;
+    max-width: 350px;
+  }
+
+  .faq_question {
+    width: 95%;
+  }
+
+  .faq_answer {
+    width: 95%;
+  }
+}
