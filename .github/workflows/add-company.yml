@@ -1,0 +1,86 @@
+# .github/workflows/add-company.yml
+#
+# 企業実績の表示追加を Claude Code で自動化するワークフロー
+#
+# 使い方:
+#   1. GitHub の Actions タブ → "Add Company Display" → "Run workflow"
+#   2. 企業名と企業IDを入力して実行
+#   3. Claude Code が HTML/CSS を修正して PR を作成
+#   4. Slack に完了通知が届く
+
+name: Add Company Display
+
+on:
+  workflow_dispatch:
+    inputs:
+      company_name:
+        description: "企業名（例: サンプル株式会社）"
+        required: true
+        type: string
+      company_id:
+        description: "企業ID（例: 12345）"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  add-company:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Claude Code
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            以下のタスクを実行してください。
+
+            ## タスク
+            リポジトリ内のHTML/CSSファイルに、新しい企業の実績表示を追加し、PRを作成する。
+
+            ## 追加する企業情報
+            - 企業名: ${{ inputs.company_name }}
+            - 企業ID: ${{ inputs.company_id }}
+
+            ## 手順
+            1. まず既存のHTML/CSSファイルを確認し、企業ごとの実績がどのように表示されているかパターンを把握する（テーブル行、カード、セクションなど）
+            2. 既存パターンに倣って、企業ID ${{ inputs.company_id }}（${{ inputs.company_name }}）の実績表示を追加する
+            3. 必要に応じてCSSも既存のスタイルパターンに合わせて追加・修正する
+            4. 新しいブランチ `add-company-${{ inputs.company_id }}` を作成する
+            5. 変更をコミットする（コミットメッセージ: "feat: ${{ inputs.company_name }}（ID:${{ inputs.company_id }}）の実績表示を追加"）
+            6. リモートにプッシュする
+            7. gh コマンドで PR を作成する
+               - タイトル: "feat: ${{ inputs.company_name }} の実績表示追加"
+               - 本文に変更内容のサマリを記載
+
+            ## 注意
+            - 既存の企業表示のHTML構造・CSSクラス名・命名規則に厳密に従うこと
+            - レイアウト崩れが起きないよう注意すること
+            - HTML/CSSそれぞれ変更対象ファイルが複数ある場合は全て修正すること
+          claude_args: "--max-turns 10"
+
+      - name: Notify Slack on success
+        if: success()
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+            --data "{
+              \"text\": \"✅ *${{ inputs.company_name }}*（ID: ${{ inputs.company_id }}）の実績表示追加PRを作成しました！\nGitHubでレビュー＆マージをお願いします 🙏\"
+            }" \
+            ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Notify Slack on failure
+        if: failure()
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+            --data "{
+              \"text\": \"❌ *${{ inputs.company_name }}*（ID: ${{ inputs.company_id }}）の実績表示追加に失敗しました。\nGitHub Actions のログを確認してください。\"
+            }" \
+            ${{ secrets.SLACK_WEBHOOK_URL }}
