@@ -53,7 +53,7 @@ jobs:
             変更をブランチ `add-company-12345` にコミットしてプッシュし、
             gh コマンドで main に対する PR を作成してください。
 
-          claude_args: "--max-turns 20"
+          claude_args: "--max-turns 20 --dangerously-skip-permissions"
 
       - name: Notify Slack on success
         if: success()
