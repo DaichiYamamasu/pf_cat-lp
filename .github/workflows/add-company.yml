@@ -85,3 +85,4 @@ jobs:
               \"text\": \"❌ *${{ inputs.company_name }}*（ID: ${{ inputs.company_id }}）の実績表示追加に失敗しました。\nGitHub Actions のログを確認してください。\"
             }" \
             ${{ secrets.SLACK_WEBHOOK_URL }}
+            
