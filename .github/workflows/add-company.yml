@@ -42,31 +42,17 @@ jobs:
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           prompt: |
-            以下のタスクを実行してください。
+            index.html の <body> 内の末尾に、以下のHTMLを追加してください。
 
-            ## タスク
-            リポジトリ内のHTML/CSSファイルに、新しい企業の実績表示を追加し、PRを作成する。
+            <div class="company" id="company-12345">
+              <h2>hoge</h2>
+              <p>企業ID: 12345</p>
+            </div>
 
-            ## 追加する企業情報
-            - 企業名: ${{ inputs.company_name }}
-            - 企業ID: ${{ inputs.company_id }}
+            変更をブランチ `add-company-12345` にコミットしてプッシュし、
+            gh コマンドで main に対する PR を作成してください。
 
-            ## 手順
-            1. まず既存のHTML/CSSファイルを確認し、企業ごとの実績がどのように表示されているかパターンを把握する（テーブル行、カード、セクションなど）
-            2. 既存パターンに倣って、企業ID ${{ inputs.company_id }}（${{ inputs.company_name }}）の実績表示を追加する
-            3. 必要に応じてCSSも既存のスタイルパターンに合わせて追加・修正する
-            4. 新しいブランチ `add-company-${{ inputs.company_id }}` を作成する
-            5. 変更をコミットする（コミットメッセージ: "feat: ${{ inputs.company_name }}（ID:${{ inputs.company_id }}）の実績表示を追加"）
-            6. リモートにプッシュする
-            7. gh コマンドで PR を作成する
-               - タイトル: "feat: ${{ inputs.company_name }} の実績表示追加"
-               - 本文に変更内容のサマリを記載
-
-            ## 注意
-            - 既存の企業表示のHTML構造・CSSクラス名・命名規則に厳密に従うこと
-            - レイアウト崩れが起きないよう注意すること
-            - HTML/CSSそれぞれ変更対象ファイルが複数ある場合は全て修正すること
-          claude_args: "--max-turns 30"
+          claude_args: "--max-turns 20"
 
       - name: Notify Slack on success
         if: success()
